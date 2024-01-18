@@ -403,7 +403,7 @@ body {
   }
   
   .menu .row .menu_card .menu_card_title,
-  .blog .row .blog_card .blog_card-title {
+  .blog .row .blog_card .blog_card_title {
     margin: 1rem auto 0.5rem;
   }
   
@@ -415,19 +415,19 @@ body {
     margin-top: 4rem;
   }
   
-  .products .product-card {
+  .products .product_card {
     text-align: center;
     border: 1px solid #666;
     padding: 2rem;
   }
   
-  .products .product-icon {
+  .products .product_icon {
     display: flex;
     justify-content: center;
     gap: 0.5rem;
   }
   
-  .products .product-icon a {
+  .products .product_icon a {
     width: 4rem;
     height: 4rem;
     color: #fff;
@@ -439,34 +439,34 @@ body {
     align-items: center;
   }
   
-  .products .product-icon a:hover {
+  .products .product_icon a:hover {
     background-color: var(--primary);
     border: 1px solid var(--primary);
   }
   
-  .products .product-image {
+  .products .product_image {
     padding: 1rem 0;
   }
   
-  .products .product-image img {
+  .products .product_image img {
     height: 15rem;
   }
   
-  .products .product-content h3 {
+  .products .product_content h3 {
     font-size: 2rem;
   }
   
-  .products .product-stars {
+  .products .product_stars {
     font-size: 1.7rem;
     padding: 0.8rem;
     color: var(--primary);
   }
   
-  .products .product-stars .star-full {
+  .products .product_stars .star-full {
     fill: var(--primary);
   }
   
-  .products .product-price {
+  .products .product_price {
     font-size: 1.3rem;
     font-weight: bold;
   }
@@ -584,7 +584,7 @@ body {
     background-color: rgba(0, 0, 0, 0.7);
   }
   
-  .modal-container {
+  .modal_container {
     position: relative;
     background-color: #fefefe;
     color: var(--bg);
@@ -607,29 +607,29 @@ body {
     }
   }
   
-  .modal-container .close-icon {
+  .modal_container .close-icon {
     position: absolute;
     right: 1rem;
   }
   
-  .modal-content {
+  .modal_content {
     display: flex;
     flex-wrap: nowrap;
   }
   
-  .modal-content img {
+  .modal_content img {
     height: 20rem;
     margin-right: 1rem;
     margin-bottom: 1rem;
   }
   
-  .modal-content p {
+  .modal_content p {
     font-size: 1rem;
     line-height: 1.5rem;
     margin-top: 1rem;
   }
   
-  .modal-content a {
+  .modal_content a {
     display: flex;
     gap: 1rem;
     width: 12rem;
@@ -739,7 +739,7 @@ body {
       font-size: 55%;
     }
   
-    .modal-content {
+    .modal_content {
       flex-wrap: wrap;
     }
   }

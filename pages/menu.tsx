@@ -7,7 +7,7 @@ import menuImg from "../public/template/img/Menu/menu.jpg";
 const Menu: NextPageWithLayout = () => {
   return (
     <section id="menu" className={styles.menu}>
-      <h2><span>Menu</span> Kami</h2>
+      <h2><span>Menu Favo</span>rite Kami</h2>
       <p>
         Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ex, aspernatur
         accusantium. Quidem ab aliquid corporis.

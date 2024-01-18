@@ -20,8 +20,8 @@ const Navbar = () => {
       <div className={styles.navbar_nav}>
         <Link href="/"> Home</Link>
         <Link href="/about"> Tentang Kami </Link>
-        <Link href="/menu"> Menu </Link>
-        <Link href="/product"> Produk Kami </Link>
+        <Link href="/menu"> Favorite </Link>
+        <Link href="/product"> Menu </Link>
         <Link href="/blog"> Blog </Link>
         <Link href="/contact"> Kontak </Link>
       </div>
