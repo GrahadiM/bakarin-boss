@@ -13,51 +13,51 @@ const Menu: NextPageWithLayout = () => {
         accusantium. Quidem ab aliquid corporis.
       </p>
 
-      <div className={styles.row}>
-        <div className={styles.menu_card}>
+      <div className="row justify-content-center mt-5">
+        <div className="col-12 col-md-3 mt-4 text-center">
           <Image
             src={menuImg}
             alt="Mexican Burger"
-            className={styles.menu_card_img}
+            className="img-fluid rounded-5 mb-3"
           />
           <h3 className={styles.menu_card_title}>- Mexican Burger -</h3>
-          <p className={styles.menu_card_price}>IDR 20K</p>
+          <p className={styles.menu_card_price}>Rp.20.000</p>
         </div>
-        <div className={styles.menu_card}>
+        <div className="col-12 col-md-3 mt-4 text-center">
           <Image
             src={menuImg}
             alt="Mexican Burger"
-            className={styles.menu_card_img}
+            className="img-fluid rounded-5 mb-3"
           />
           <h3 className={styles.menu_card_title}>- Mexican Burger -</h3>
-          <p className={styles.menu_card_price}>IDR 20K</p>
+          <p className={styles.menu_card_price}>Rp.20.000</p>
         </div>
-        <div className={styles.menu_card}>
+        <div className="col-12 col-md-3 mt-4 text-center">
           <Image
             src={menuImg}
             alt="Mexican Burger"
-            className={styles.menu_card_img}
+            className="img-fluid rounded-5 mb-3"
           />
           <h3 className={styles.menu_card_title}>- Mexican Burger -</h3>
-          <p className={styles.menu_card_price}>IDR 20K</p>
+          <p className={styles.menu_card_price}>Rp.20.000</p>
         </div>
-        <div className={styles.menu_card}>
+        <div className="col-12 col-md-3 mt-4 text-center">
           <Image
             src={menuImg}
             alt="Mexican Burger"
-            className={styles.menu_card_img}
+            className="img-fluid rounded-5 mb-3"
           />
           <h3 className={styles.menu_card_title}>- Mexican Burger -</h3>
-          <p className={styles.menu_card_price}>IDR 20K</p>
+          <p className={styles.menu_card_price}>Rp.20.000</p>
         </div>
-        <div className={styles.menu_card}>
+        <div className="col-12 col-md-3 mt-4 text-center">
           <Image
             src={menuImg}
             alt="Mexican Burger"
-            className={styles.menu_card_img}
+            className="img-fluid rounded-5 mb-3"
           />
           <h3 className={styles.menu_card_title}>- Mexican Burger -</h3>
-          <p className={styles.menu_card_price}>IDR 20K</p>
+          <p className={styles.menu_card_price}>Rp.20.000</p>
         </div>
       </div>
     </section>

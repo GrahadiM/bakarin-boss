@@ -88,6 +88,11 @@ export default function Layout({ children }: LayoutProps) {
 
           /* Link */
           a { text-decoration:none; }
+          
+          /* Col Star */
+          .col-star {
+            width:10% !important
+          }
         `}</style>
         <main className={inter.className}>
           <Navbar />
