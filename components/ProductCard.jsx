@@ -4,8 +4,6 @@ import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus, faEye, faStar } from "@fortawesome/free-solid-svg-icons";
 import React, { useState } from "react";
-import ReactStars from 'react-stars'
-// import { Button, Modal } from "react-bootstrap";
 
 function formatCurrency(value) {
   if (!value) return "Rp 0";

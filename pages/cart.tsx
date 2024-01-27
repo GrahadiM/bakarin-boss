@@ -22,6 +22,7 @@ const Cart: NextPageWithLayout = () => {
       const response = await axios.get('/api/cart');
       setCart(response.data);
       calculateTotalPrice(response.data);
+      console.log(response.data);
     } catch (error) {
       console.error(error);
     }
@@ -48,6 +49,7 @@ const Cart: NextPageWithLayout = () => {
   const calculateTotalPrice = (cartItems) => {
     const total = cartItems.reduce((acc, item) => acc + item.totalPrice, 0);
     setTotalPrice(total);
+    console.log('total harga :', total);
   };
 
   const handleCheckout = async () => {
@@ -79,7 +81,7 @@ const Cart: NextPageWithLayout = () => {
       console.log('Deleted Cart!');
 
       // Redirect to the order confirmation page or any other page
-      router.push('/order-confirmation');
+      router.push(`/order-confirmation?id=${orderResponse.data.id}`);
     } catch (error) {
       console.error(error);
     }

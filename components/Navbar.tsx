@@ -1,13 +1,29 @@
 "use client";
+import axios from 'axios';
 import Link from 'next/link';
-import { useState } from 'react';
-import ShoppingCart from './ShoppingCart';
+import { useState, useEffect } from 'react';
 import styles from "./app.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus, faSearch } from "@fortawesome/free-solid-svg-icons";
 
 const Navbar = () => {
   const [searchOpen, setSearchOpen] = useState(false);
+  const [cartItemCount, setCartItemCount] = useState(0);
+
+  useEffect(() => {
+    // Fetch cart data from the API and update the cartItemCount
+    const fetchCartData = async () => {
+      try {
+        const response = await axios.get('/api/cart');
+        const itemCount = response.data.reduce((acc, item) => acc + item.quantity, 0);
+        setCartItemCount(itemCount);
+      } catch (error) {
+        console.error('Error fetching cart data:', error);
+      }
+    };
+
+    fetchCartData();
+  }, []);
 
   const toggleSearch = () => {
     setSearchOpen(!searchOpen);
@@ -61,6 +77,7 @@ const Navbar = () => {
               style={{ fontSize: 100, color: "white" }}
             />
           </svg>
+          {cartItemCount > 0 && <span className="badge bg-danger">{cartItemCount}</span>}
         </Link>
 
         <Link href="#" id={styles.hamburger_menu}>

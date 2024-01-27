@@ -1,5 +1,11 @@
 import styles from "./app.module.css";
 import Link from 'next/link';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faInstagram, faFacebook } from '@fortawesome/free-brands-svg-icons';
+
+library.add(faInstagram);
+library.add(faFacebook);
 
 const Footer = () => {
   return (
@@ -21,6 +27,18 @@ const Footer = () => {
 
       <div className={styles.credit}>
         <p>Created by <Link href="">fianfirdaus</Link> | &copy; 2023.</p>
+        <Link href="" className="mx-2">
+          <FontAwesomeIcon
+            icon={faInstagram}
+            style={{ fontSize: 25, color: "white" }}
+          />
+        </Link>
+        <Link href="" className="mx-2">
+          <FontAwesomeIcon
+            icon={faFacebook}
+            style={{ fontSize: 25, color: "white" }}
+          />
+        </Link>
       </div>
     </div>
   );

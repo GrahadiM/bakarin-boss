@@ -98,6 +98,17 @@ export default function Layout({ children }: LayoutProps) {
           .modal_ {
             margin-top:5rem !important;
           }
+
+          /* Carousel */
+          .carousel-mt {
+            margin-top:20% !important;
+          }
+
+          /* Banner */
+          .app_hero__4id8a {
+            mask-image: none !important;
+            -webkit-mask-image: linear-gradient(rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0)) !important;
+          }
         `}</style>
         <main className={inter.className}>
           <Navbar />

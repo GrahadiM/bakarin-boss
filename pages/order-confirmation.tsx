@@ -3,24 +3,29 @@ import type { NextPageWithLayout } from './_app';
 import Layout from '../components/layout';
 import styles from '../components/app.module.css';
 import axios from 'axios';
+import { useRouter } from 'next/router';
 import type { Order, OrderProduct } from './types'; // Import the types
 
 const OrderConfirmation: NextPageWithLayout = () => {
+  const router = useRouter();
   const [orders, setOrders] = useState<Order[]>([]);
   const [orderProducts, setOrderProducts] = useState<OrderProduct[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        // Get ID order dari query parameter
+        const orderId = router.query.id;
+
         // Get order data using GET method with query parameter
-        const orderResponse = await axios.get('/api/order?id=1'); // Ganti ID sesuai yang diinginkan
+        const orderResponse = await axios.get(`/api/order?id=${orderId}`); // Ganti ID sesuai yang diinginkan
         console.log(orderResponse);
 
         // Simpan order ke state
         setOrders([orderResponse.data]);
 
         // Dapatkan order product data
-        const orderProductResponse = await axios.get('/api/orderProduct?orderId=1'); // Ganti ID sesuai yang diinginkan
+        const orderProductResponse = await axios.get(`/api/orderProduct?orderId=${orderId}`); // Ganti ID sesuai yang diinginkan
         console.log(orderProductResponse);
 
         // Simpan order product ke state
@@ -31,7 +36,7 @@ const OrderConfirmation: NextPageWithLayout = () => {
     };
 
     fetchData();
-  }, []);
+  }, [router.query.id]);
 
   return (
     <section className={styles.products} id={styles.products}>
