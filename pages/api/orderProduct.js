@@ -1,11 +1,28 @@
 import dbConnect from '../../config/database';
 import OrderProduct from '../../models/orderProduct';
-import Cart from '../../models/cart';
 
 dbConnect();
 
 export default async function handler(req, res) {
-  if (req.method === 'POST') {
+  if (req.method === 'GET') {
+    try {
+      // Jika terdapat parameter ID pada query, cari order products berdasarkan ID order
+      if (req.query.orderId) {
+        const orderId = req.query.orderId;
+        const orderProducts = await OrderProduct.findAll({
+          where: { orderId: orderId },
+        });
+
+        res.status(200).json(orderProducts);
+      } else {
+        // Jika tidak ada parameter ID, ambil semua order products
+        const allOrderProducts = await OrderProduct.findAll();
+        res.status(200).json(allOrderProducts);
+      }
+    } catch (error) {
+      res.status(500).json({ message: 'Internal Server Error', error });
+    }
+  } else if (req.method === 'POST') {
     try {
       const orderProducts = req.body;
 
@@ -17,11 +34,7 @@ export default async function handler(req, res) {
       // Create order products
       const createdOrderProducts = await OrderProduct.bulkCreate(orderProducts);
 
-      // Delete cart items based on productIds
-      const productIds = orderProducts.map((product) => product.productId);
-      await Cart.destroy({ where: { productId: productIds } });
-
-      console.log('Created item:', orderProducts);
+      console.log('Created items:', orderProducts);
       res.status(201).json(createdOrderProducts);
     } catch (error) {
       res.status(500).json({ message: 'Internal Server Error', error });
