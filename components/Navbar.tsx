@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { useState } from 'react';
 import ShoppingCart from './ShoppingCart';
 import styles from "./app.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCartPlus, faSearch } from "@fortawesome/free-solid-svg-icons";
 
 const Navbar = () => {
   const [searchOpen, setSearchOpen] = useState(false);
@@ -12,7 +14,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className={styles.navbar} x-data>
+    <nav className={styles.navbar}>
       <Link href="/" className={styles.navbar_logo}>
         Bakarin<span>Boss</span>.
       </Link>
@@ -28,31 +30,43 @@ const Navbar = () => {
 
       <div className={styles.navbar_extra}>
         <Link href="#" onClick={toggleSearch}>
-          <i data-feather="search"></i>
+          <svg
+            width="24"
+            height="24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <FontAwesomeIcon
+              icon={faSearch}
+              style={{ fontSize: 100, color: "white" }}
+            />
+          </svg>
         </Link>
 
-        <Link href="#" onClick={toggleSearch} className={styles.shopping_cart_button}>
-          <i data-feather={styles.shopping_cart}></i>
-          <span className={styles.quantity_badge} x-show="$store.cart.quantity" x-text="$store.cart.quantity"></span>
+        <Link href="/cart" onClick={toggleSearch} className={styles.shopping_cart_button}>
+          <svg
+            width="24"
+            height="24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <FontAwesomeIcon
+              icon={faCartPlus}
+              style={{ fontSize: 100, color: "white" }}
+            />
+          </svg>
         </Link>
 
         <Link href="#" id={styles.hamburger_menu}>
           <i data-feather="menu"></i>
         </Link>
       </div>
-
-      {/* search form start */}
-      <div className={`search-form ${searchOpen ? 'active' : ''}`}>
-        <input type="search" id={styles.search_box} placeholder="search here..." />
-        <label htmlFor="search-box">
-          <i data-feather="search"></i>
-        </label>
-      </div>
-      {/* search form end */}
-
-      {/* Tambahkan komponen Shopping Cart di sini */}
-      <ShoppingCart />
-
     </nav>
   );
 };

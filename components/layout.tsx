@@ -91,7 +91,12 @@ export default function Layout({ children }: LayoutProps) {
           
           /* Col Star */
           .col-star {
-            width:10% !important
+            width:10% !important;
+          }
+          
+          /* Modal */
+          .modal_ {
+            margin-top:5rem !important;
           }
         `}</style>
         <main className={inter.className}>
