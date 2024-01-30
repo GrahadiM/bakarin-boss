@@ -1,8 +1,8 @@
 import Link from "next/link";
 import axios from 'axios';
+import Image from "next/image";
 import React, { useEffect, useState } from 'react';
 import type { NextPageWithLayout } from "../_app";
-import Image from "next/image";
 import { Modal, Button } from "react-bootstrap";
 import Layout from "../../components/layout";
 import styles from "../../components/app.module.css";
@@ -134,7 +134,13 @@ const Product: NextPageWithLayout = () => {
                   </Link>
                 </div>
                 <div className={styles.product_image}>
-                  <Image src={data?.img} alt="Menu" className="img-fluid" width="300" height="300" />
+                  <Image
+                    src={data?.img}
+                    alt="Menu"
+                    className="img-fluid"
+                    width="300"
+                    height="300"
+                  />
                 </div>
                 <div className={styles.product_content}>
                   <h3>{data?.name}</h3>

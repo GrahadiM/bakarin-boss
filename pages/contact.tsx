@@ -1,8 +1,26 @@
 import type { NextPageWithLayout } from "./_app";
 import Layout from "../components/layout";
 import styles from "../components/app.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser, faEnvelope, faPhone, faList } from "@fortawesome/free-solid-svg-icons";
 
 const Contact: NextPageWithLayout = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const toko        = 'Bakarin Boss';
+    const name        = e.target.elements.name.value;
+    const email       = e.target.elements.email.value;
+    const phone       = e.target.elements.phone.value;
+    const description = e.target.elements.description.value;
+
+    // Link WhatsApp
+    const whatsappLink = `https://wa.me/6285767113554?text=Halo%20${toko},%20saya%20${name}%0AEmail%3A%20${email}%0ANomor%20Telepon%3A%20${phone}%0ADeskripsi%3A%20${description}`;
+
+    // Open new tab for link WhatsApp
+    window.open(whatsappLink, '_blank');
+  };
+
   return (
     <section id="contact" className={styles.contact}>
       <h2><span>Kontak</span> Kami</h2>
@@ -19,20 +37,24 @@ const Contact: NextPageWithLayout = () => {
           className={styles.map}
         ></iframe>
 
-        <form action="">
+        <form onSubmit={handleSubmit}>
           <div className={styles.input_grup}>
-            <i data-feather="user"></i>
-            <input type="text" placeholder="name" />
+            <FontAwesomeIcon icon={faUser} />
+            <input type="text" name="name" placeholder="Nama" required />
           </div>
           <div className={styles.input_grup}>
-            <i data-feather="mail"></i>
-            <input type="text" placeholder="e-mail" />
+            <FontAwesomeIcon icon={faEnvelope} />
+            <input type="email" name="email" placeholder="Email" required />
           </div>
           <div className={styles.input_grup}>
-            <i data-feather="phone"></i>
-            <input type="text" placeholder="phone" />
+            <FontAwesomeIcon icon={faPhone} />
+            <input type="number" name="phone" placeholder="Nomor WhatsApp" required />
           </div>
-          <button type="submit" className={styles.btn}>kirim pesan</button>
+          <div className={styles.input_grup}>
+            <FontAwesomeIcon icon={faList} />
+            <input type="text" name="description" placeholder="Deskripsi" required />
+          </div>
+          <button type="submit" className={styles.btn}>Kirim Pesan</button>
         </form>
       </div>
     </section>

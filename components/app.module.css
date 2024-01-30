@@ -58,6 +58,11 @@ body {
   .navbar .navbar_nav a:hover {
     color: var(--primary);
   }
+
+  .navbar .navbar_nav .active {
+    color: var(--primary);
+    border-bottom: 0.1rem solid var(--primary);
+  }
   
   .navbar .navbar_nav a::after {
     content: "";

@@ -109,6 +109,10 @@ export default function Layout({ children }: LayoutProps) {
             mask-image: none !important;
             -webkit-mask-image: linear-gradient(rgba(0, 0, 0, 1) 50%, rgba(0, 0, 0, 0)) !important;
           }
+          
+          .app_contact__1CcTi .app_row__LMlli .app_map___27Ww {
+            height: 50rem !important;
+          }
         `}</style>
         <main className={inter.className}>
           <Navbar />

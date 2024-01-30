@@ -1,5 +1,6 @@
 import dbConnect from '../../config/database';
 import OrderProduct from '../../models/orderProduct';
+import Cart from '../../models/cart';
 
 dbConnect();
 
@@ -35,6 +36,15 @@ export default async function handler(req, res) {
       const createdOrderProducts = await OrderProduct.bulkCreate(orderProducts);
 
       console.log('Created items:', orderProducts);
+
+      // Hapus item dari keranjang berdasarkan ID
+      const cartItemIds = orderProducts.map((item) => item.cartItemId);
+      await Cart.destroy({
+        where: { id: cartItemIds },
+      });
+
+      console.log('Deleted items from cart:', cartItemIds);
+
       res.status(201).json(createdOrderProducts);
     } catch (error) {
       res.status(500).json({ message: 'Internal Server Error', error });

@@ -1,37 +1,47 @@
 import axios from 'axios';
+import Image from "next/image";
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import type { NextPageWithLayout } from "./_app";
-import Layout from "../components/layout";
-import styles from "../components/app.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinusSquare, faPlusSquare, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import Layout from "../components/layout";
+import styles from "../components/app.module.css";
 
-const Cart: NextPageWithLayout = () => {
-
-  const [cart, setCart] = useState([]);
-  const [totalPrice, setTotalPrice] = useState(0);
+const Cart = () => {
   const router = useRouter();
+  const [totalPrice, setTotalPrice] = useState(0);
+  const [cartWithProducts, setCartWithProducts] = useState([]);
 
   useEffect(() => {
-    getCart();
+    fetchData();
   }, []);
 
-  const getCart = async () => {
+  const fetchData = async () => {
     try {
-      const response = await axios.get('/api/cart');
-      setCart(response.data);
-      calculateTotalPrice(response.data);
-      console.log(response.data);
+      const cartResponse = await axios.get('/api/cart');
+      const productResponse = await axios.get('/api/products');
+      const cartItems = cartResponse.data.carts;
+  
+      const cartWithProducts = cartItems.map((cartItem) => {
+        const product = productResponse.data.find((product) => product.id === cartItem.productId);
+        return {
+          ...cartItem,
+          product: product || {},
+        };
+      });
+  
+      setCartWithProducts(cartWithProducts);
+      calculateTotalPrice(cartWithProducts);
     } catch (error) {
-      console.error(error);
+      console.error('Error fetching cart data:', error);
     }
   };
 
   const handleIncreaseQuantity = async (productId) => {
     try {
       await axios.post('/api/cart', { productId, quantity: 1 });
-      getCart();
+      fetchData();
+      router.reload();
     } catch (error) {
       console.error(error);
     }
@@ -40,7 +50,8 @@ const Cart: NextPageWithLayout = () => {
   const handleDecreaseQuantity = async (productId) => {
     try {
       await axios.post('/api/cart', { productId, quantity: -1 });
-      getCart();
+      fetchData();
+      router.reload();
     } catch (error) {
       console.error(error);
     }
@@ -62,7 +73,7 @@ const Cart: NextPageWithLayout = () => {
       console.log('Created Order:', orderResponse);
 
       // Prepare order products array
-      const orderProducts = cart.map(item => ({
+      const orderProducts = cartWithProducts.map((item) => ({
         orderId: orderResponse.data.id,
         productId: item.productId,
         name: item.name,
@@ -73,14 +84,16 @@ const Cart: NextPageWithLayout = () => {
 
       // Create order products
       await axios.post('/api/orderProduct', orderProducts);
-      console.log('Created Order Product:', orderProducts);
+      console.log('Created Order Products:', orderProducts);
 
-      // Clear the cart after successful checkout
-      setCart([]);
+      // Get product IDs from cart
+      const productIds = cartWithProducts.map((item) => item.productId);
+
+      // Delete cart items by product IDs
+      await axios.delete('/api/cart', { data: { productIds } });
+      console.log('Deleted Cart Items:', productIds);
+
       setTotalPrice(0);
-      console.log('Deleted Cart!');
-
-      // Redirect to the order confirmation page or any other page
       router.push(`/order-confirmation?id=${orderResponse.data.id}`);
     } catch (error) {
       console.error(error);
@@ -112,34 +125,52 @@ const Cart: NextPageWithLayout = () => {
       </p>
 
       <div className="row mt-5">
-        {cart.length === 0 ? (
-          <h3 className='text-center'>Data Belum Tersedia!</h3>
+        {cartWithProducts.length === 0 ? (
+          <>
+            <h3 className='text-center'>Data Belum Tersedia!</h3>
+            <div className='text-center mt-3'>
+              <button onClick={() => router.push('/product')} className='btn btn-outline-primary'>
+                Kembali ke Menu
+              </button>
+            </div>
+          </>
         ) : (
-          <ul className='col-12'>
-            {cart.map((data) => (
-              <li key={data?.id} className='mb-3'>
-                {data?.name} - {formatCurrency(data?.totalPrice)} -
-                Quantity: {data?.quantity}
-                <button onClick={() => handleIncreaseQuantity(data?.productId)} className='btn btn-sm btn-outline-primary mx-2'>
-                  <FontAwesomeIcon
-                    icon={faPlusSquare}
-                    style={{ fontSize: 25, color: "white" }}
-                  />
-                </button>
-                <button onClick={() => handleDecreaseQuantity(data?.productId)} className='btn btn-sm btn-outline-danger mx-2'>
-                  <FontAwesomeIcon
-                    icon={faMinusSquare}
-                    style={{ fontSize: 25, color: "white" }}
-                  />
-                </button>
-              </li>
-            ))}
-          </ul>
+          <table className="table table-responsive table-dark table-hover text-center">
+            <thead>
+              <tr>
+                <th scope="col">Image</th>
+                <th scope="col">Product</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {cartWithProducts.map((data) => (
+                <tr key={data?.id}>
+                  <td>
+                    <Image src={data?.product?.img} alt={data?.product?.name} alt="Menu" className="img-fluid" width="120" height="120" />
+                  </td>
+                  <td>{data?.name}</td>
+                  <td>{formatCurrency(data?.totalPrice)}</td>
+                  <td>{data?.quantity}</td>
+                  <td>
+                    <button onClick={() => handleIncreaseQuantity(data?.productId)} className='btn btn-sm btn-outline-primary me-2'>
+                      <FontAwesomeIcon icon={faPlusSquare} style={{ fontSize: 20 }} />
+                    </button>
+                    <button onClick={() => handleDecreaseQuantity(data?.productId)} className='btn btn-sm btn-outline-danger'>
+                      <FontAwesomeIcon icon={faMinusSquare} style={{ fontSize: 20 }} />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         )}
 
         <div className='text-end mt-3'>
           <h5>Total: {formatCurrency(totalPrice)}</h5>
-          <button onClick={handleCheckout} className='btn btn-primary'>
+          <button onClick={handleCheckout} className='btn btn-primary' disabled={cartWithProducts.length === 0}>
             <FontAwesomeIcon icon={faShoppingCart} className='me-2' />
             Checkout
           </button>
@@ -149,8 +180,6 @@ const Cart: NextPageWithLayout = () => {
   );
 };
 
-export default Cart;
-
 Cart.getLayout = function getLayout(page: React.ReactElement) {
   return (
     <Layout>
@@ -158,3 +187,5 @@ Cart.getLayout = function getLayout(page: React.ReactElement) {
     </Layout>
   );
 };
+
+export default Cart;
