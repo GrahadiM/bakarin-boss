@@ -16,21 +16,48 @@ This is Website uses React JS for Developer Technical Test in Implementation Tes
 - No connection to Database!
 
 ## Folder Structure
+- config
+  - config.json
+  - database.js
 - components
   - app.module.css
   - Navbar.tsx
   - Footer.tsx
   - ShoppingCart
   - layout.tsx
+- migrations
+  - cart.js
+  - order.js
+  - orderProduct.js
+  - products.js
+- models
+  - products.js
+  - cart.js
+  - order.js
+  - orderProduct.js
 - pages
+  - api
+    - cart.js
+    - menuFavorite.js
+    - order.js
+    - orderProduct.js
+    - products.js
   - _app.tsx
-  - index.tsx
   - about.tsx
-  - menu.tsx
-  - product.tsx
   - blog.tsx
+  - cart.tsx
   - contact.tsx
+  - index.tsx
+  - menu.tsx
+  - order-confirmationtsx
+  - product.tsx
 - public
+  - template
+- seeders
+  - cart.js
+  - order.js
+  - orderProduct.js
+  - products.js
 
 ## Demo *(in development)*
 <b>Please wait.</b>
@@ -83,4 +110,12 @@ npm run dev
 
 ```bash
 npm run start
+```
+### Push Migrate & Seeder
+
+```bash
+npx sequelize-cli db:migrate
+```
+```bash
+npx sequelize-cli db:seed:all
 ```
