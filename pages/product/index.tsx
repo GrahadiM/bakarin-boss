@@ -1,6 +1,7 @@
 import Link from "next/link";
 import axios from 'axios';
 import Image from "next/image";
+// import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import type { NextPageWithLayout } from "../_app";
 import { Modal, Button } from "react-bootstrap";
@@ -10,8 +11,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartPlus, faEye, faStar } from "@fortawesome/free-solid-svg-icons";
 
 const Product: NextPageWithLayout = () => {
-  const [products, setProducts] = useState([]);
+  // const router = useRouter();
   const [cart, setCart] = useState([]);
+  const [products, setProducts] = useState([]);
   
   useEffect(() => {
     getProducts();
@@ -36,7 +38,8 @@ const Product: NextPageWithLayout = () => {
         totalPrice: product.price,
       });
       setCart(response.data);
-      console.log('Product added to cart');
+      // router.reload();
+      console.log('Product added to cart', response.data);
     } catch (error) {
       console.error('Error adding product to cart', error);
     }

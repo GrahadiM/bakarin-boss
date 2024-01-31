@@ -49,50 +49,58 @@ const OrderConfirmation: NextPageWithLayout = () => {
       <p>Thank you for your order! Your order has been confirmed.</p>
 
       <h3 className="mt-5">Detail Orderan</h3>
-      <table className="table table-responsive table-dark table-hover text-center">
-        <thead>
-          <tr>
-            <th scope="col">Order ID</th>
-            <th scope="col">Customer Name</th>
-            <th scope="col">Total Price</th>
-          </tr>
-        </thead>
-        <tbody>
-          {orders.map((order) => (
-            <tr key={order.id}>
-              <td>{order.id}</td>
-              <td>{order.customerName}</td>
-              <td>{order.totalPrice}</td>
+      {orders.length === 0 ? (
+        <h5 className="text-center fw-bold">Data Belum Tersedia!</h5>
+      ) : (
+        <table className="table table-responsive table-dark table-hover text-center">
+          <thead>
+            <tr>
+              <th scope="col">Order ID</th>
+              <th scope="col">Customer Name</th>
+              <th scope="col">Total Price</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {orders.map((order) => (
+              <tr key={order.id}>
+                <td>{order.id}</td>
+                <td>{order.customerName}</td>
+                <td>{order.totalPrice}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
 
       <h3 className="mt-5">Detail Produk Orderan</h3>
-      <table className="table table-responsive table-dark table-hover text-center">
-        <thead>
-          <tr>
-            <th scope="col">Product Name</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Price</th>
-          </tr>
-        </thead>
-        <tbody>
-          {orderProducts.map((orderProduct) => (
-            <tr key={orderProduct.id}>
-              <td>{orderProduct.name}</td>
-              <td>{orderProduct.quantity}</td>
-              <td>{orderProduct.price}</td>
+      {orderProducts.length === 0 ? (
+        <h5 className="text-center fw-bold">Data Belum Tersedia!</h5>
+      ) : (
+        <table className="table table-responsive table-dark table-hover text-center">
+          <thead>
+            <tr>
+              <th scope="col">Product Name</th>
+              <th scope="col">Quantity</th>
+              <th scope="col">Price</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {orderProducts.map((orderProduct) => (
+              <tr key={orderProduct.id}>
+                <td>{orderProduct.name}</td>
+                <td>{orderProduct.quantity}</td>
+                <td>{orderProduct.price}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
 
       <div className="text-end mt-3">
         <Link href="/product" className="btn btn-danger mx-3">
           Menu
         </Link>
-        <button onClick={handleSnapPayment} className="btn btn-success">
+        <button onClick={handleSnapPayment} className={`btn btn-success ${orders.length === 0 ? 'disabled' : ''}`} disabled={orders.length === 0}>
           Bayar
         </button>
       </div>

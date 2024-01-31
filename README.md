@@ -119,3 +119,13 @@ npx sequelize-cli db:migrate
 ```bash
 npx sequelize-cli db:seed:all
 ```
+
+### Run App with Static Domain from ngrok
+
+```bash
+ngrok http 3000 --domain bakarinboss.ngrok.app
+```
+OR
+```bash
+ngrok http --domain=alert-lionfish-partly.ngrok-free.app 3000
+```

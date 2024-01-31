@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Image from "next/image";
-import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMinusSquare, faPlusSquare, faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import Layout from "../components/layout";
