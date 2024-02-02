@@ -1,12 +1,12 @@
 // pages/api/menuFavorite.js
-import dbConnect from '../../config/database';
-import OrderProduct from '../../models/orderProduct';
-import Product from '../../models/product';
+import dbConnect from "../../config/database";
+import OrderProduct from "../../models/orderProduct";
+import Product from "../../models/product";
 
 dbConnect();
 
 export default async function handler(req, res) {
-  if (req.method === 'GET') {
+  if (req.method === "GET") {
     try {
       // Fetch the top 3 most ordered products
       const orderProducts = await OrderProduct.findAll();
@@ -31,9 +31,9 @@ export default async function handler(req, res) {
 
       res.status(200).json(favoriteProducts);
     } catch (error) {
-      res.status(500).json({ message: 'Internal Server Error', error });
+      res.status(500).json({ message: "Internal Server Error", error });
     }
   } else {
-    res.status(405).json({ message: 'Method Not Allowed' });
+    res.status(405).json({ message: "Method Not Allowed" });
   }
 }
