@@ -25,7 +25,7 @@ const Navbar = () => {
 
     const eventSource = new EventSource('/api/cart/events');
     eventSource.addEventListener('cartUpdated', (event) => {
-      const { carts, totalPrice } = JSON.parse(event.data);
+      const carts = JSON.parse(event.data);
       setCartItemCount(carts.reduce((acc, item) => acc + item.quantity, 0));
     });
 

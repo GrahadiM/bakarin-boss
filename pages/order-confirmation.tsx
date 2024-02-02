@@ -20,27 +20,37 @@ const OrderConfirmation: NextPageWithLayout = () => {
     try {
       const orderId = router.query.id;
       const orderResponse = await axios.get(`/api/order?id=${orderId}`);
-      console.log(orderResponse);
       setOrders([orderResponse.data]);
       const orderProductResponse = await axios.get(`/api/orderProduct?orderId=${orderId}`);
-      console.log(orderProductResponse);
       setOrderProducts(orderProductResponse.data);
     } catch (error) {
       console.error('Error fetching order confirmation data:', error);
     }
   };
 
-  const handleSnapPayment = async () => {
-    try {
-      const orderId = router.query.id;
-      const snapTokenResponse = await axios.post('/api/midtrans/snap-token', { orderId });
-      const snapToken = snapTokenResponse.data.snapToken;
-      const snapBaseUrl = 'https://app.sandbox.midtrans.com/snap/v1';
-      const snapUrl = `${snapBaseUrl}/token/${snapToken}`;
-      window.location.href = snapUrl;
-    } catch (error) {
-      console.error('Error initiating Snap payment:', error);
-    }
+  const handlePayment = async (order, orderProducts) => {
+    const parameter = {
+      transaction_details: {
+        order_id: order.id,
+        gross_amount: order.totalPrice,
+      },
+      item_details: orderProducts.map(product => ({
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        quantity: product.quantity,
+      })),
+    };
+    // console.log(JSON.stringify(parameter.item_details));
+    // console.log(parameter.transaction_details, parameter.item_details, parameter);
+
+    // const response = await axios.post(`/api/checkout`, { parameter : parameter });
+    const response = await fetch(`/api/checkout`, {
+      method: "POST",
+      body: JSON.stringify(parameter),
+    });
+    const requestData = await response.json();
+    console.log(requestData, response);
   };
 
   return (
@@ -100,7 +110,7 @@ const OrderConfirmation: NextPageWithLayout = () => {
         <Link href="/product" className="btn btn-danger mx-3">
           Menu
         </Link>
-        <button onClick={handleSnapPayment} className={`btn btn-success ${orders.length === 0 ? 'disabled' : ''}`} disabled={orders.length === 0}>
+        <button onClick={() => handlePayment(orders[0], orderProducts)} className={`btn btn-success ${orders.length === 0 ? 'disabled' : ''}`} disabled={orders.length === 0}>
           Bayar
         </button>
       </div>
