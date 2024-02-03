@@ -6,13 +6,13 @@ import fs from 'fs/promises';
 
 dbConnect();
 
+const productImageDir = path.join(process.cwd(), 'public', 'template', 'img', 'product');
+
 export const config = {
   api: {
     bodyParser: false,
   },
 };
-
-const productImageDir = path.join(process.cwd(), 'public', 'template', 'img', 'product');
 
 export default async function handler(req, res) {
   if (req.method === 'GET') {
@@ -33,7 +33,7 @@ export default async function handler(req, res) {
 
       form.parse(req, async (err, fields, files) => {
         if (err) {
-          console.error('Formidable Error:', err);
+          console.error(err);
           return res.status(500).json({ message: 'Internal Server Error' });
         }
 
@@ -42,20 +42,22 @@ export default async function handler(req, res) {
         const imgPath = files.img.path;
 
         try {
+          // Ubah nama file sesuai kebutuhan (dengan prefix /template/img/product)
           const imgName = `/template/img/product/${Date.now()}_${files.img.name}`;
           const newImgPath = path.join(process.cwd(), 'public', imgName);
 
+          // Pindahkan file ke folder yang diinginkan
           await fs.rename(imgPath, newImgPath);
 
           const product = await Product.create({ name, price, img: imgName });
           res.status(201).json(product);
         } catch (error) {
-          console.error('Error creating product:', error);
+          console.error(error);
           res.status(500).json({ message: 'Internal Server Error' });
         }
       });
     } catch (error) {
-      console.error('General Error:', error);
+      console.error(error);
       res.status(500).json({ message: 'Internal Server Error' });
     }
   }
