@@ -26,7 +26,7 @@ const Login: NextPageWithLayout = () => {
   return (
     <section className={`container ${styles.about}`}>
       <h2>
-        <span>Tentang</span> Kami
+        <span>Login</span> Admin
       </h2>
       <div className={`row ${styles.form}`}>
         <div className="col-md-6 offset-md-3">

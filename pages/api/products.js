@@ -34,7 +34,7 @@ export default async function handler(req, res) {
       form.parse(req, async (err, fields, files) => {
         if (err) {
           console.error(err);
-          return res.status(500).json({ message: 'Internal Server Error' });
+          return res.status(500).json({ message: 'Error parsing form data', error: err.message });
         }
 
         const { name, price } = fields;
