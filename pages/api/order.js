@@ -23,12 +23,14 @@ export default async function handler(req, res) {
       res.status(500).json({ message: 'Internal Server Error', error });
     }
   } else if (req.method === 'POST') {
-    const { customerName, totalPrice } = req.body;
+    const { customerName, totalPrice, customerPhone, customerAddress } = req.body;
     try {
-      const order = await Order.create({ customerName, totalPrice });
+      const order = await Order.create({ customerName, totalPrice, customerPhone, customerAddress });
       res.status(201).json(order);
     } catch (error) {
       res.status(500).json({ message: 'Internal Server Error', error });
     }
+  } else {
+    res.status(405).json({ message: 'Method Not Allowed' });
   }
 }

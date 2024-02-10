@@ -13,6 +13,16 @@ module.exports = {
         allowNull: false,
         defaultValue: 'Alfian',
       },
+      customerPhone: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        defaultValue: '085767113554',
+      },
+      customerAddress: {
+        type: Sequelize.STRING,
+        allowNull: false,
+        defaultValue: 'Jakarta Utara',
+      },
       totalPrice: {
         type: Sequelize.INTEGER,
         allowNull: false,

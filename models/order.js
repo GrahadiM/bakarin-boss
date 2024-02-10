@@ -14,6 +14,16 @@ const Order = sequelize.define('Order', {
     allowNull: false,
     defaultValue: 'Alfian',
   },
+  customerPhone: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    // defaultValue: '085767113554',
+  },
+  customerAddress: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    // defaultValue: 'Jakarta Utara',
+  },
   totalPrice: {
     type: DataTypes.INTEGER,
     allowNull: false,

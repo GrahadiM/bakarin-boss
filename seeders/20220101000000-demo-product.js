@@ -25,8 +25,11 @@ module.exports = {
           price: 15000,
           img: "/template/img/product/4.jpg",
         },
-        { name: "Scallop", price: 15000, img: "/template/img/product/5.jpg" },
-        { name: "Scallop", price: 15000, img: "/template/img/product/5.jpg" },
+        {
+          name: "Scallop",
+          price: 15000,
+          img: "/template/img/product/5.jpg"
+        },
       ],
       {}
     );

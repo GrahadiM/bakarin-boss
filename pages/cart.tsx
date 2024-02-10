@@ -13,6 +13,8 @@ import styles from "../components/app.module.css";
 
 const Cart = () => {
   const router = useRouter();
+  const [customerPhone, setPhone] = useState('');
+  const [customerAddress, setAddress] = useState('');
   const [totalPrice, setTotalPrice] = useState(0);
   const [cartWithProducts, setCartWithProducts] = useState([]);
 
@@ -71,14 +73,14 @@ const Cart = () => {
 
   const handleCheckout = async () => {
     try {
-      // Create an order
       const orderResponse = await axios.post("/api/order", {
         customerName: "Alfian",
+        customerPhone,
+        customerAddress,
         totalPrice,
       });
       console.log("Created Order:", orderResponse);
 
-      // Prepare order products array
       const orderProducts = cartWithProducts.map((item) => ({
         orderId: orderResponse.data.id,
         productId: item.productId,
@@ -198,16 +200,39 @@ const Cart = () => {
           </table>
         )}
 
-        <div className="text-end mt-3">
-          <h5>Total: {formatCurrency(totalPrice)}</h5>
-          <button
-            onClick={handleCheckout}
-            className="btn btn-primary"
-            disabled={cartWithProducts.length === 0}
-          >
-            <FontAwesomeIcon icon={faShoppingCart} className="me-2" />
-            Checkout
-          </button>
+        <div className="row">
+          <div className="col-md-8"></div>
+          <div className="col-md-4">
+            <div className="mb-2">
+              <label>Phone:</label>
+              <input
+                type="text"
+                className="form-control"
+                value={customerPhone}
+                onChange={(e) => setPhone(e.target.value)}
+              />
+            </div>
+            <div className="mb-2">
+              <label>Address:</label>
+              <input
+                type="text"
+                className="form-control"
+                value={customerAddress}
+                onChange={(e) => setAddress(e.target.value)}
+              />
+            </div>
+            <div className="text-end mt-3">
+              <h5>Total: {formatCurrency(totalPrice)}</h5>
+              <button
+                onClick={handleCheckout}
+                className="btn btn-primary"
+                disabled={cartWithProducts.length === 0}
+              >
+                <FontAwesomeIcon icon={faShoppingCart} className="me-2" />
+                Checkout
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
