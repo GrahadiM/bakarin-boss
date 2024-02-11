@@ -2,11 +2,17 @@ import axios from 'axios';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
+import useSWR from 'swr';
 import type { NextPageWithLayout } from './_app';
 import Layout from '../components/layout';
 import styles from '../components/app.module.css';
 import type { Order, OrderProduct } from './types';
 import MidtransClient from 'midtrans-client';
+
+const fetcher = async (url: string) => {
+  const res = await fetch(url);
+  return res.json();
+};
 
 const OrderConfirmation: NextPageWithLayout = () => {
   const router = useRouter();

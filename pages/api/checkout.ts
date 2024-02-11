@@ -1,10 +1,15 @@
-import { cors, runMiddleware } from '../../middlewares/cors';
+import Cors from 'cors';
+import { runMiddleware } from '../../middlewares/cors';
 import type { NextApiRequest, NextApiResponse } from 'next';
 import axios from 'axios';
 import MidtransClient from 'midtrans-client';
 import dotenv from 'dotenv';
 
 dotenv.config();
+
+const cors = Cors({
+  methods: ['POST'], // Hanya metode POST yang diperbolehkan
+});
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === 'POST') {
